@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 public class NewTask {
-    private final static String QUEUE_NAME = "hello";
+    private final static String TASK_QUEUE_NAME = "tasks";
 
     public static void main(String[] args) throws Exception {
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -15,9 +15,9 @@ public class NewTask {
         try {
             Connection connection = connectionFactory.newConnection();
             Channel channel = connection.createChannel();
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            channel.queueDeclare(TASK_QUEUE_NAME, false, false, false, null);
             String message = String.join(" ", args);
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            channel.basicPublish("", TASK_QUEUE_NAME, null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
         } catch (IOException e) {
             e.printStackTrace();
