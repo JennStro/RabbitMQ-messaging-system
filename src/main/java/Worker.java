@@ -22,6 +22,8 @@ public class Worker {
             System.out.println(" [x] Received '" + message + "'");
             try {
                 doWork(message);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             } finally {
                 System.out.println(" [x] Done");
             }
