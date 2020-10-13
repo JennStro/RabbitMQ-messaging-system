@@ -16,6 +16,9 @@ public class Send {
         try {
             Connection connection = connectionFactory.newConnection();
             Channel channel = connection.createChannel();
+            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            String message = "Hello world!";
+            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (TimeoutException e) {
