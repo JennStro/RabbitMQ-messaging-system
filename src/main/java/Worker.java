@@ -16,6 +16,9 @@ public class Worker {
 
         boolean durable = true;
         channel.queueDeclare("task_queue", durable, false, false, null);
+        int prefetchCount = 1;
+        channel.basicQos(prefetchCount);
+
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
